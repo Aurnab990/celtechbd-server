@@ -60,11 +60,13 @@ async function run() {
           $set: {
             name: updateItem.name,
             price: updateItem.price,
-            imei: updateItem.iemi,
-            inStock: updateItem.available
+            imei: updateItem.imei,
+            stock: updateItem.stock
           }
         };
+        console.log(updatedDoc);
         const result = await itemsCollection.updateOne(query, updatedDoc, options);
+        
         res.send(result);
         
       })
@@ -100,6 +102,7 @@ async function run() {
         // console.log("Request", req.body);
         const newSupplyProducts = req.body;
         const result = await supplyCollection.insertOne(newSupplyProducts);
+
         res.send(result);
       });
 
