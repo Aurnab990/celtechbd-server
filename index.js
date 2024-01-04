@@ -43,6 +43,13 @@ async function run() {
         const result = await itemsCollection.insertOne(newUser);
         res.send(result);
       });
+      app.get('/products/:id', async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)};
+        const products = await itemsCollection.findOne(query);
+        res.send(products);
+  
+      });
 
       //customer api
       app.get('/customer', async(req,res)=>{
