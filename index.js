@@ -51,6 +51,27 @@ async function run() {
   
       });
 
+      app.put('/products/:id', async(req, res) =>{
+        const id = req.params.id;
+        const updateItem = req.body;
+        const query = {_id:new ObjectId(id)};
+        const options= { upsert: true};
+        const updatedDoc ={
+          $set: {
+            name: updateItem.name,
+            price: updateItem.price,
+            imei: updateItem.iemi,
+            inStock: updateItem.available
+          }
+        };
+        const result = await itemsCollection.updateOne(query, updatedDoc, options);
+        res.send(result);
+        
+      })
+
+
+
+
       //customer api
       app.get('/customer', async(req,res)=>{
         const query = {};
